@@ -374,6 +374,9 @@ Columns
 :routine_body:
     The language used for the routine implementation.
     If it doesn't apply, then ``Null``.
+:data_type:
+    The return type of the function.
+    If it doesn't apply, then ``Null``.
 :is_deterministic:
     If the routine is deterministic then `True`, else `False` (``Null`` if it doesn't apply).
 :routine_definition:
