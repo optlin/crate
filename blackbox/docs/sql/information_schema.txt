@@ -351,8 +351,6 @@ Columns
 +--------------------+-------------+
 | routine_type       | String      |
 +--------------------+-------------+
-| routine_schema     | String      |
-+--------------------+-------------+
 | routine_body       | String      |
 +--------------------+-------------+
 | data_type          | String      |
@@ -369,8 +367,6 @@ Columns
     Type of the routine.
     Can be ``FUNCTION``, ``ANALYZER``, ``CHAR_FILTER``, ``TOKEN_FILTER``
     or ``TOKEN_FILTER``.
-:routine_schema:
-    Name of the schema containing the function
 :routine_body:
     The language used for the routine implementation.
     If it doesn't apply, then ``Null``.
