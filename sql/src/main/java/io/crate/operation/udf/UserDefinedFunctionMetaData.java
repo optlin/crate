@@ -34,7 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class UserDefinedFunctionMetaData implements Streamable, ToXContent {
 
@@ -71,6 +72,18 @@ public class UserDefinedFunctionMetaData implements Streamable, ToXContent {
 
     public List<FunctionArgumentDefinition> arguments() {
         return arguments;
+    }
+
+    public List<DataType> argumentDataTypes() {
+        return arguments.stream().map(FunctionArgumentDefinition::type).collect(toList());
+    }
+
+    boolean sameSignature(UserDefinedFunctionMetaData function) {
+        if ((function == null) || !this.name().equals(function.name())) {
+            return false;
+        }
+
+        return this.argumentDataTypes().equals(function.argumentDataTypes());
     }
 
     @Override
@@ -175,13 +188,6 @@ public class UserDefinedFunctionMetaData implements Streamable, ToXContent {
         return Objects.hash(name, arguments, returnType, definition, language);
     }
 
-    public int createMethodSignature() {
-        return Objects.hash(
-            name,
-            arguments.stream().map(FunctionArgumentDefinition::type).collect(Collectors.toList())
-        );
-    }
-
     public static class DataTypeXContent {
 
         public static XContentBuilder toXContent(DataType type, XContentBuilder builder, Params params) throws IOException {
@@ -207,7 +213,7 @@ public class UserDefinedFunctionMetaData implements Streamable, ToXContent {
                         DataType innerType = fromXContent(parser);
                         if (id == ArrayType.ID) {
                             type = new ArrayType(innerType);
-                        } else  {
+                        } else {
                             type = new SetType(innerType);
                         }
                     } else {
