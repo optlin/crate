@@ -82,7 +82,6 @@ public class UserDefinedFunctionMetaData implements Streamable, ToXContent {
         if ((function == null) || !this.name().equals(function.name())) {
             return false;
         }
-
         return this.argumentDataTypes().equals(function.argumentDataTypes());
     }
 

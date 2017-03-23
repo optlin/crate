@@ -122,7 +122,6 @@ public class UserDefinedFunctionService extends AbstractLifecycleComponent<UserD
             newMetaData.add(functionMetaData);
         }
 
-
         assert !newMetaData.equals(oldMetaData): "must not be equal to guarantee the cluster change action";
         return newMetaData;
     }
